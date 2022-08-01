@@ -21,7 +21,9 @@ export function getServerUrl(): URL {
 export async function deleteExcludedAssets(destDir: string, excludeAssets: string): Promise<void> {
   if (excludeAssets === '') return;
   core.info(`[INFO] delete excluded assets`);
-  const excludedAssetNames: Array<string> = excludeAssets.split(',');
+  const excludedAssetNamesTemp: Array<string> = excludeAssets.split(',');
+  const excludedAssetNames: Array<string> = excludedAssetNamesTemp.filter(e => !e.includes('.github'));;
+
   const excludedAssetPaths = ((): Array<string> => {
     const paths: Array<string> = [];
     for (const pattern of excludedAssetNames) {
